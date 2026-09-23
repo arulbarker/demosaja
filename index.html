@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bersih Kilat Gasken">
+<meta name="theme-color" content="#15110C">
+<title>Bersih Kilat Gasken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15110C;--ink2:#2A2219;--cream:#EFE4CE;--cream2:#F6EEDD;--card:#FCF8EF;
+  --red:#B6402F;--red2:#9C3324;--brass:#C9A458;--brass2:#DBBE7C;
+  --line:#E4D6BA;--line2:#D6C4A0;--muted:#5C4F3F;--muted2:#837460;
+  --success:#46734A;--warn:#95702C;
+  --sans:'Hanken Grotesk',system-ui,sans-serif;--head:'Oswald',Impact,sans-serif;--mono:'Space Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:#c8b79a;font-family:var(--sans);color:var(--ink);display:flex;align-items:center;justify-content:center}
+#phone{position:relative;width:100%;max-width:402px;height:100dvh;max-height:874px;background:var(--cream2);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+@media(min-width:520px){#phone{border-radius:28px;border:2px solid var(--ink)}}
+#app{flex:1;overflow-y:auto;padding:44px 18px 96px;display:flex;flex-direction:column;gap:16px}
+#nav{position:absolute;left:0;right:0;bottom:0;height:78px;padding:8px 10px 20px;background:rgba(246,238,221,.92);backdrop-filter:blur(8px);border-top:1.5px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:40}
+.navbtn{border:none;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;font-family:var(--head);font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.navbtn .bar{width:26px;height:3px;border-radius:2px}
+.h1{font-family:var(--head);font-weight:700;font-size:28px;line-height:1;text-transform:uppercase;letter-spacing:.04em}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:14px}
+.stamp{background:var(--card);border:2px solid var(--ink);border-radius:2px;box-shadow:3px 3px 0 var(--ink);padding:14px 16px}
+.mono{font-family:var(--mono)}
+.dark{background:var(--ink);color:var(--cream2);border-radius:4px;padding:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--sans);font-weight:600;font-size:15px;border-radius:4px;cursor:pointer;border:1.5px solid var(--ink);padding:0 16px;height:48px;background:var(--card);color:var(--ink)}
+.btn.lg{height:54px}.btn.sm{height:36px;font-size:13px;padding:0 12px}.btn.block{width:100%}
+.btn.stamp{background:var(--card);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--red);border-radius:2px}
+.btn.stamp:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--red)}
+.btn.primary{background:var(--red);color:var(--cream2);border-color:var(--red)}
+.btn.secondary{background:transparent}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted);padding:0 4px;height:32px;justify-content:flex-start}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:2px}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-brass{background:var(--brass);color:var(--ink)}.b-accent{background:var(--red);color:var(--cream2)}
+.b-success{background:#DCE9DC;color:var(--success)}.b-warning{background:#F0E2C4;color:var(--warn)}
+.b-ink{background:var(--ink);color:var(--cream2)}.b-outline{background:transparent;color:var(--muted);border:1.5px solid var(--line2)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--brass);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:600;font-size:13px;flex-shrink:0}
+.avatar.md{width:44px;height:44px;font-size:16px}.avatar.lg{width:64px;height:64px;font-size:22px}
+.tag{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line2);background:var(--card);font-size:13px;cursor:pointer;font-family:var(--sans);color:var(--ink)}
+.tag.on{background:var(--ink);color:var(--cream2);border-color:var(--ink)}
+.sw{width:44px;height:24px;border-radius:999px;background:var(--line2);position:relative;cursor:pointer;flex-shrink:0}
+.sw.on{background:var(--success)}
+.sw::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw.on::after{transform:translateX(20px)}
+.tabs{display:flex;gap:6px;background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:4px}
+.tabs button{flex:1;height:36px;border:none;background:transparent;border-radius:6px;font-family:var(--sans);font-weight:600;font-size:13px;cursor:pointer;color:var(--muted)}
+.tabs button.on{background:var(--ink);color:var(--cream2)}
+.inp{width:100%;height:44px;padding:0 14px;border:1.5px solid var(--line2);border-radius:4px;background:var(--card);font-family:var(--sans);font-size:15px;color:var(--ink);outline:none}
+.inp:focus{border-color:var(--ink)}
+.row{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.qbtn{width:36px;height:36px;border:1.5px solid var(--ink);background:transparent;border-radius:4px;font-size:18px;cursor:pointer;color:var(--ink);font-family:inherit}
+.qbtn.plus{background:var(--ink);color:var(--cream2)}
+@keyframes bk-toast{0%{opacity:0;transform:translateY(8px)}12%{opacity:1;transform:none}85%{opacity:1}100%{opacity:0}}
+#toast{position:absolute;left:18px;right:18px;bottom:96px;background:var(--ink);color:var(--cream2);border-radius:4px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:3px 3px 0 var(--red);font-size:14px;pointer-events:none;z-index:50}
+#reset{position:absolute;top:8px;right:10px;z-index:60;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);background:transparent;border:1px solid var(--line2);border-radius:3px;padding:3px 6px;cursor:pointer;opacity:.5}
+</style>
+</head>
+<body>
+<div id="phone">
+  <button id="reset">Reset demo</button>
+  <div id="app"></div>
+  <nav id="nav"></nav>
+  <div id="toast" style="display:none"></div>
+</div>
+<script>
+const SERVICES=[
+ {id:'cs',name:'Cuci kering setrika',cat:'Kiloan',unit:'kg',price:7000,eta:'2 hari'},
+ {id:'ck',name:'Cuci kering',cat:'Kiloan',unit:'kg',price:5000,eta:'1 hari'},
+ {id:'st',name:'Setrika saja',cat:'Kiloan',unit:'kg',price:4000,eta:'1 hari'},
+ {id:'bc',name:'Bed cover king',cat:'Satuan',unit:'pcs',price:25000,eta:'2 hari'},
+ {id:'sl',name:'Selimut / boneka',cat:'Satuan',unit:'pcs',price:20000,eta:'2 hari'},
+ {id:'sp',name:'Sepatu',cat:'Satuan',unit:'psg',price:30000,eta:'2 hari'},
+ {id:'dj',name:'Dry clean jas',cat:'Dry clean',unit:'pcs',price:35000,eta:'3 hari'},
+ {id:'dg',name:'Dry clean gaun',cat:'Dry clean',unit:'pcs',price:45000,eta:'3 hari'}
+];
+const CUSTS=[
+ {name:'Bu Sari',phone:'0812-3456-7890',visits:38},
+ {name:'Pak Budi',phone:'0813-2211-0099',visits:12},
+ {name:'Mbak Dewi',phone:'0857-9900-1122',visits:5},
+ {name:'Rizky',phone:'0821-4455-6677',visits:9}
+];
+const SEED={
+ tab:'home',sub:null,step:1,custQuery:'',cust:null,cat:'Semua',qty:{},express:false,
+ pay:'tunai',cash:null,lastNo:null,receiptSent:false,notified:{},qFilter:'aktif',rPeriod:'hari',
+ queue:[
+  {no:'0231',name:'Bu Sari',desc:'Cuci setrika 4 kg',total:28000,status:'antri',pay:'tunai',eta:'Rabu 10:00'},
+  {no:'0230',name:'Pak Budi',desc:'Bed cover king ×2',total:50000,status:'cuci',pay:'qris',eta:'Rabu 15:00'},
+  {no:'0229',name:'Mbak Dewi',desc:'Dry clean jas ×1',total:35000,status:'siap',pay:'piutang',eta:'Siap'},
+  {no:'0228',name:'Rizky',desc:'Cuci kering 3 kg',total:15000,status:'siap',pay:'tunai',eta:'Siap'},
+  {no:'0227',name:'Ibu Hana',desc:'Cuci setrika 6 kg · express',total:63000,status:'diambil',pay:'qris',eta:'Selesai'}
+ ],
+ aiInput:'',aiThinking:false,
+ aiMessages:[{role:'ai',text:'Halo Rina. Saya bisa jawab omzet, laba, pelanggan, piutang, stok, karyawan, dan antar-jemput dari data kasir. Tanya apa saja.'}],
+ detailCust:null,
+ cashBalance:1436000,cashIn:1286000,cashOut:150000,
+ mutations:[
+  {time:'11:20',title:'Beli deterjen cair 5 L',sub:'Pengeluaran · Bahan · Nota difoto',amt:-95000},
+  {time:'10:05',title:'Token listrik',sub:'Pengeluaran · Operasional',amt:-55000},
+  {time:'09:41',title:'NO. 0232 · Bu Sari',sub:'Penjualan · Tunai',amt:28000},
+  {time:'09:12',title:'NO. 0231 · Pak Budi',sub:'Penjualan · QRIS',amt:50000},
+  {time:'07:58',title:'Buka kas',sub:'Modal awal · Rina',amt:300000}
+ ],
+ stock:[
+  {name:'Deterjen cair',cur:4.5,max:20,unit:'L',note:'Pemakaian 1,4 L/hari · sisa 4,5 L',low:true},
+  {name:'Pewangi',cur:7,max:10,unit:'L',note:'',low:false},
+  {name:'Plastik kemasan',cur:120,max:200,unit:'lbr',note:'',low:false},
+  {name:'Pelembut',cur:8,max:10,unit:'L',note:'',low:false},
+  {name:'Hanger',cur:64,max:100,unit:'pcs',note:'',low:false},
+  {name:'Gas LPG (pengering)',cur:2,max:3,unit:'tabung',note:'',low:false}
+ ],
+ commission:true,
+ waAuto:{nota:true,siap:true,piutang:true,belum:false},
+ waSeg:'lama',
+ pickups:[
+  {time:'13:00',name:'Mbak Dewi',type:'Antar',info:'Jl. Kenanga 12 · NO. 0229 · Dry clean jas · Belum bayar Rp 35.000',status:'jalan'},
+  {time:'14:30',name:'Pak Hendra',type:'Jemput',info:'Perum Griya Asri B7 · Order via WA · ±6 kg',status:'menunggu'},
+  {time:'15:15',name:'Kos Putri Melati',type:'Jemput',info:'Jl. Melati 3 · Langganan mingguan · 4 kamar',status:'menunggu'},
+  {time:'16:00',name:'Rizky',type:'Antar',info:'Jl. Anggrek 8 · NO. 0228 · 3 kg · Lunas',status:'menunggu'}
+ ],
+ pjFilter:'Semua'
+};
+let state=load();
+function load(){try{const r=localStorage.getItem('bkg');return r?Object.assign(JSON.parse(JSON.stringify(SEED)),JSON.parse(r)):JSON.parse(JSON.stringify(SEED));}catch(e){return JSON.parse(JSON.stringify(SEED));}}
+function save(){try{localStorage.setItem('bkg',JSON.stringify(state));}catch(e){}}
+function setState(patch){state=Object.assign(state,typeof patch==='function'?patch(state):patch);save();render();}
+function resetDemo(){localStorage.removeItem('bkg');state=JSON.parse(JSON.stringify(SEED));render();}
+function fmt(n){return 'Rp '+Math.round(n).toLocaleString('id-ID');}
+function esc(s){return String(s).replace(/"/g,'&quot;');}
+
+function subtotal(){return SERVICES.reduce((a,s)=>a+(state.qty[s.id]||0)*s.price,0);}
+function total(){const s=subtotal();return state.express?s*1.5:s;}
+function change(cash){return Math.max(0,cash-total());}
+function runTests(){
+ const results=[];const saved=JSON.stringify(state.qty);const savedExp=state.express;
+ state.qty={cs:2};state.express=false;
+ results.push(['subtotal 2kg cs',subtotal()===14000]);
+ results.push(['total no express',total()===14000]);
+ state.express=true;
+ results.push(['total express +50%',total()===21000]);
+ state.qty={cs:2,dj:1};state.express=false;
+ results.push(['subtotal mixed',subtotal()===49000]);
+ results.push(['change cukup',change(50000)===1000]);
+ results.push(['change kurang menjadi 0',change(40000)===0]);
+ state.qty=JSON.parse(saved);state.express=savedExp;
+ const pass=results.filter(r=>r[1]).length;
+ results.forEach(r=>console.log((r[1]?'PASS':'FAIL')+' — '+r[0]));
+ console.log('TESTS: '+pass+'/'+results.length+(pass===results.length?' ✅':' ❌'));
+ return pass===results.length;
+}
+
+const initials=n=>n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+function Button(label,o){o=o||{};const variant=o.variant||'primary',size=o.size||'',block=o.block?'block':'',act=o.act||'',arg=o.arg!=null?o.arg:'',dis=o.disabled?'disabled':'';
+ return '<button class="btn '+variant+' '+size+' '+block+'" '+dis+' data-act="'+act+'" data-arg="'+esc(arg)+'">'+label+'</button>';}
+function Badge(label,variant,dot){variant=variant||'ink';return '<span class="badge b-'+variant+'">'+(dot?'<span class="dot"></span>':'')+label+'</span>';}
+function Avatar(name,size){return '<div class="avatar '+(size||'')+'">'+initials(name)+'</div>';}
+function Tag(label,on,act,arg){return '<button class="tag '+(on?'on':'')+'" data-act="'+act+'" data-arg="'+esc(arg!=null?arg:'')+'">'+label+'</button>';}
+function Switch(on,act,arg){return '<div class="sw '+(on?'on':'')+'" data-act="'+act+'" data-arg="'+esc(arg!=null?arg:'')+'"></div>';}
+let toastTimer;
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.style.display='flex';el.style.animation='none';void el.offsetWidth;el.style.animation='bk-toast 2.6s ease forwards';clearTimeout(toastTimer);toastTimer=setTimeout(function(){el.style.display='none';},2600);}
+
+function barChart(data){
+ const max=Math.max.apply(null,data.map(d=>d[1]));
+ return '<div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">'+data.map(d=>
+  '<div style="display:flex;align-items:center;gap:8px"><span class="mono" style="font-size:10px;width:28px;color:var(--muted2)">'+d[0]+'</span>'+
+  '<div style="flex:1;height:10px;background:var(--cream);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+Math.round(d[1]/max*100)+'%;background:var(--red)"></div></div>'+
+  '<span class="mono" style="font-size:10px;width:44px;text-align:right">'+d[1]+'</span></div>').join('')+'</div>';
+}
+function answer(q){
+ const t=q.toLowerCase();const src='Dari 1.284 transaksi · 1–23 Sep 2026';
+ if(/omzet|pendapatan|penjualan|laba|untung/.test(t))return{text:'Omzet minggu ini Rp 4.860.000, naik 12% dari minggu lalu (Rp 4.340.000).\nHari terbaik Sabtu: Rp 1.120.000 dari 41 order.\nSetelah bahan, listrik, dan komisi, laba kotor ± Rp 3.310.000 (68%).',source:src,chart:[['Sen',620],['Sel',680],['Rab',710],['Kam',700],['Jum',930],['Sab',1120],['Min',100]]};
+ if(/pelanggan|langganan|sering|lama/.test(t))return{text:'Pelanggan paling sering bulan ini: Bu Sari (6×), Kos Putri Melati (5×), Pak Budi (4×).\n31 pelanggan belum datang lebih dari 30 hari, total belanja mereka sebelumnya Rp 2,4 jt. Mau saya buat draf WA promo untuk mereka?',source:src};
+ if(/piutang|belum bayar|hutang|utang/.test(t))return{text:'Piutang aktif Rp 215.000 dari 6 order.\nTerlama: Mbak Dewi NO. 0229 Rp 35.000 (4 hari). Pengingat WA otomatis sudah terkirim 1×.\nRata-rata piutang lunas dalam 3,2 hari.',source:src};
+ if(/stok|deterjen|bahan|habis/.test(t))return{text:'Deterjen cair sisa 4,5 L, pemakaian 1,4 L/hari, habis ±Kamis. Saran pesan hari ini.\nPlastik kemasan 120 lembar cukup ±2 minggu. Bahan lain aman.',source:'Stok & pemakaian per kg, 23 Sep'};
+ if(/ramai|sibuk|prediksi|jam|besok|minggu depan/.test(t))return{text:'Paling ramai Jumat dan Sabtu 16–19, rata-rata 14 order/jam.\nMinggu depan ada libur panjang: perkiraan order naik 25%. Pertimbangkan tambah Agus di shift sore Jumat–Sabtu.',source:'Pola 12 minggu terakhir',chart:[['16',9],['17',12],['18',14],['19',13],['20',7],['21',4]]};
+ if(/karyawan|shift|rina|agus|dodi|komisi/.test(t))return{text:'Hari ini shift pagi Rina + Agus, sore Dodi.\nMinggu ini Agus mencuci 187 kg (komisi Rp 93.500), Dodi 142 kg (Rp 71.000). Rina memproses 96 order, tanpa selisih kas.',source:'Absensi & komisi, 17–23 Sep'};
+ if(/promo|diskon|harga/.test(t))return{text:'Cuci kering setrika menyumbang 61% omzet dengan margin 70%. Aman untuk diskon 20% ke 31 pelanggan yang lama tak datang.\nHarga kiloan Rp 7.000 masih 12% di bawah rata-rata 3 laundry terdekat.\nDraf broadcast sudah saya siapkan di menu WhatsApp.',source:src};
+ if(/antar|jemput|kurir|ongkir/.test(t))return{text:'Antar-jemput bulan ini 64 titik, 28% dari order. Ongkir terkumpul Rp 210.000, biaya bensin ± Rp 160.000.\nHari ini 5 titik, 1 kurir sedang di jalan.',source:'Jadwal kurir, Sep 2026'};
+ return{text:'Saya belum menemukan itu di data. Yang bisa saya jawab: omzet & laba, pelanggan, piutang, stok bahan, jam ramai, karyawan & komisi, antar-jemput. Coba ketik "berapa piutang yang belum lunas?"'};
+}
+function askAI(q){
+ if(!q||!q.trim())return;
+ setState(s=>({aiMessages:s.aiMessages.concat([{role:'user',text:q}]),aiInput:'',aiThinking:true}));
+ setTimeout(function(){const a=answer(q);setState(s=>({aiMessages:s.aiMessages.concat([Object.assign({role:'ai'},a)]),aiThinking:false}));},900);
+}
+
+function countBy(s){return state.queue.filter(o=>o.status===s).length;}
+function todayRevenue(){return fmt(state.queue.filter(o=>o.pay!=='piutang').reduce((a,o)=>a+o.total,0)+1095000);}
+const SHORTCUTS=[['pelanggan','Pelanggan'],['kas','Kas'],['stok','Stok'],['karyawan','Karyawan'],['antarjemput','Antar-jemput'],['wa','WhatsApp']];
+
+function viewHome(){
+ const ready=state.queue.filter(o=>o.status==='siap');
+ return ''+
+ '<div style="display:flex;align-items:center;justify-content:space-between">'+
+   '<div><div class="eyebrow">Selasa 23 Sep · Shift pagi</div><div class="h1" style="margin-top:4px">Bersih Kilat Gasken</div></div>'+
+   Avatar('Rina Kasir')+
+ '</div>'+
+ '<div class="dark" style="display:flex;flex-direction:column;gap:14px">'+
+   '<div style="display:flex;justify-content:space-between;align-items:center"><span class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)">Omzet hari ini</span>'+Badge('Kas buka','brass')+'</div>'+
+   '<div class="mono" style="font-weight:700;font-size:32px">'+todayRevenue()+'</div>'+
+   '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;border-top:1.5px dashed rgba(246,238,221,.25);padding-top:12px">'+
+     '<div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Order</div><div class="mono" style="font-weight:700;font-size:18px">'+state.queue.length+'</div></div>'+
+     '<div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Dicuci</div><div class="mono" style="font-weight:700;font-size:18px">'+countBy('cuci')+'</div></div>'+
+     '<div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Siap</div><div class="mono" style="font-weight:700;font-size:18px">'+countBy('siap')+'</div></div>'+
+   '</div>'+
+ '</div>'+
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
+   Button('+ Order baru',{variant:'stamp',size:'lg',block:true,act:'startOrder'})+
+   Button('Lihat antrian',{variant:'secondary',size:'lg',block:true,act:'nav',arg:'antrian'})+
+ '</div>'+
+ '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'+
+   SHORTCUTS.map(s=>'<button class="card" data-act="open" data-arg="'+s[0]+'" style="cursor:pointer;text-align:center;padding:14px 6px;font-weight:600;font-size:13px">'+s[1]+'</button>').join('')+
+ '</div>'+
+ '<div style="display:flex;flex-direction:column;gap:10px">'+
+   '<div style="display:flex;justify-content:space-between;align-items:baseline"><div class="h1" style="font-size:18px">Siap diambil</div><span class="mono" style="font-size:11px;color:var(--muted2)">'+ready.length+' ORDER</span></div>'+
+   ready.map(o=>'<div class="row"><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:15px">'+o.name+'</div><div class="mono" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:2px">NO. '+o.no+' · '+o.desc+'</div></div>'+Button(state.notified[o.no]?'Terkirim':'Kabari WA',{variant:'secondary',size:'sm',act:'notify',arg:o.no})+'</div>').join('')+
+ '</div>'+
+ Button('Tanya asisten — "Berapa omzet minggu ini?"',{variant:'stamp',block:true,act:'nav',arg:'ai'});
+}
+
+function viewKasir(){
+ const S=state;const sub=subtotal(),tot=total();
+ const headerNo=S.step===4?S.lastNo:String(232+S.queue.filter(o=>+o.no>231).length).padStart(4,'0');
+ const stepTitle=['Pelanggan','Layanan','Pembayaran','Nota'][S.step-1];
+ const stepLabel=S.step===4?'SELESAI':S.step+'/3';
+ let body='';
+ if(S.step===1){
+  body+='<div class="field"><label>Cari pelanggan</label><input id="custQuery" class="inp" value="'+esc(S.custQuery)+'" placeholder="Nama atau nomor WA"></div>';
+  body+='<div style="display:flex;flex-direction:column;gap:8px">';
+  CUSTS.forEach(c=>{const sel=S.cust&&S.cust.name===c.name;
+   body+='<button data-act="pickCust" data-arg="'+c.name+'" style="text-align:left;background:var(--card);border:1.5px solid '+(sel?'var(--ink)':'var(--line)')+';border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;font-family:inherit;color:var(--ink)">'+Avatar(c.name)+'<div style="flex:1"><div style="font-weight:600;font-size:15px">'+c.name+'</div><div class="mono" style="font-size:11px;color:var(--muted);margin-top:2px">'+c.phone+' · '+c.visits+' kunjungan</div></div>'+(sel?Badge('Dipilih','accent'):'')+'</button>';});
+  body+='<button data-act="newCust" style="text-align:left;background:transparent;border:1.5px dashed var(--line2);border-radius:8px;padding:12px 14px;cursor:pointer;font-family:inherit;color:var(--muted);font-size:14px">+ Pelanggan baru dari nomor yang diketik</button>';
+  body+='</div>';
+  body+=Button('Lanjut pilih layanan',{variant:'stamp',size:'lg',block:true,disabled:!S.cust,act:'step',arg:2});
+ }
+ if(S.step===2){
+  const cats=['Semua','Kiloan','Satuan','Dry clean'];
+  body+='<div style="display:flex;gap:8px;flex-wrap:wrap">'+cats.map(k=>Tag(k,S.cat===k,'setCat',k)).join('')+'</div>';
+  body+='<div style="display:flex;flex-direction:column;gap:8px">';
+  SERVICES.filter(s=>S.cat==='Semua'||s.cat===S.cat).forEach(s=>{const n=S.qty[s.id]||0;const ql=(n%1?n.toFixed(1):n)+' '+s.unit;
+   body+='<div class="row"><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:15px">'+s.name+'</div><div class="mono" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:2px">'+fmt(s.price)+'/'+s.unit+' · '+s.eta+'</div></div><div style="display:flex;align-items:center;gap:6px"><button class="qbtn" data-act="dec" data-arg="'+s.id+'">−</button><span class="mono" style="font-weight:700;font-size:14px;min-width:44px;text-align:center">'+ql+'</span><button class="qbtn plus" data-act="inc" data-arg="'+s.id+'">+</button></div></div>';});
+  body+='</div>';
+  body+='<div class="row"><div style="flex:1"><div style="font-weight:600;font-size:15px">Express 6 jam</div><div style="font-size:13px;color:var(--muted)">Tambah 50% dari subtotal</div></div>'+Switch(S.express,'toggleExpress')+'</div>';
+  body+='<div class="stamp" style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between" class="mono"><span>SUBTOTAL</span><span>'+fmt(sub)+'</span></div>'+(S.express?'<div style="display:flex;justify-content:space-between;color:var(--red)" class="mono"><span>EXPRESS +50%</span><span>+'+fmt(sub*0.5)+'</span></div>':'')+'<div style="border-top:1.5px dashed var(--line2)"></div><div style="display:flex;justify-content:space-between;font-weight:700;font-size:20px" class="mono"><span>TOTAL</span><span>'+fmt(tot)+'</span></div></div>';
+  body+='<div style="display:grid;grid-template-columns:auto 1fr;gap:10px">'+Button('Kembali',{variant:'secondary',size:'lg',act:'step',arg:1})+Button('Ke pembayaran',{variant:'stamp',size:'lg',block:true,disabled:sub===0,act:'step',arg:3})+'</div>';
+ }
+ if(S.step===3){
+  const cash=S.cash!=null?S.cash:tot;
+  body+='<div class="dark"><div class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)">Tagihan · '+(S.cust||{name:''}).name+'</div><div class="mono" style="font-weight:700;font-size:34px;margin-top:8px">'+fmt(tot)+'</div></div>';
+  body+='<div class="eyebrow">Metode bayar</div>';
+  const pm=[['tunai','Tunai','LACI KAS'],['qris','QRIS','SCAN'],['piutang','Piutang','BAYAR NANTI']];
+  body+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">'+pm.map(p=>{const on=S.pay===p[0];return '<button data-act="setPay" data-arg="'+p[0]+'" style="height:64px;border:1.5px solid var(--ink);background:'+(on?'var(--ink)':'var(--card)')+';color:'+(on?'var(--cream2)':'var(--ink)')+';border-radius:4px;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><span style="font-family:var(--head);font-weight:600;font-size:16px;text-transform:uppercase;letter-spacing:.05em">'+p[1]+'</span><span class="mono" style="font-size:10px;letter-spacing:.08em;opacity:.8">'+p[2]+'</span></button>';}).join('')+'</div>';
+  if(S.pay==='tunai'){
+   const opts=[tot,Math.ceil(tot/10000)*10000,Math.ceil(tot/50000)*50000,Math.ceil(tot/100000)*100000].filter((v,i,a)=>a.indexOf(v)===i).slice(0,4);
+   body+='<div class="eyebrow">Uang diterima</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">'+opts.map(v=>{const on=cash===v;return '<button data-act="setCash" data-arg="'+v+'" style="height:44px;border:1.5px solid '+(on?'var(--ink)':'var(--line2)')+';background:'+(on?'var(--ink)':'var(--card)')+';border-radius:4px;cursor:pointer;color:'+(on?'var(--cream2)':'var(--ink)')+'" class="mono"><span style="font-weight:700;font-size:12px">'+(v===tot?'PAS':(v/1000)+'K')+'</span></button>';}).join('')+'</div>';
+   body+='<div class="row" style="justify-content:space-between" class="mono"><span class="mono" style="font-size:13px">KEMBALIAN</span><span class="mono" style="font-weight:700;font-size:13px">'+fmt(change(cash))+'</span></div>';
+  }
+  if(S.pay==='qris'){body+='<div class="card" style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="width:150px;height:150px;background:var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--brass)" class="mono">QRIS DINAMIS</div><div style="font-size:13px;color:var(--muted)">Minta pelanggan scan · status otomatis terverifikasi</div></div>';}
+  if(S.pay==='piutang'){body+='<div class="card" style="display:flex;flex-direction:column;gap:6px"><div style="font-weight:600">Dicatat sebagai piutang</div><div style="font-size:13px;color:var(--muted);line-height:1.5">Pengingat WA otomatis dikirim saat cucian siap dan 3 hari setelahnya jika belum lunas.</div></div>';}
+  const cta=S.pay==='piutang'?'Simpan sebagai piutang':S.pay==='qris'?'Konfirmasi pembayaran':'Terima '+fmt(cash);
+  body+='<div style="display:grid;grid-template-columns:auto 1fr;gap:10px">'+Button('Kembali',{variant:'secondary',size:'lg',act:'step',arg:2})+Button(cta,{variant:'stamp',size:'lg',block:true,act:'finishOrder'})+'</div>';
+ }
+ if(S.step===4){
+  const lines=SERVICES.filter(s=>S.qty[s.id]);
+  const maxEta=lines.reduce((m,s)=>Math.max(m,parseInt(s.eta)),0);
+  const stampText=S.pay==='piutang'?'Belum bayar':'Lunas',stampColor=S.pay==='piutang'?'var(--red)':'var(--success)';
+  const cash=S.cash!=null?S.cash:tot;
+  const payLabel=S.pay==='piutang'?'PIUTANG · JATUH TEMPO 3 HARI':S.pay.toUpperCase()+(S.pay==='tunai'?' · KEMBALI '+fmt(change(cash)):'');
+  const paidLabel=S.pay==='piutang'?'Rp 0':fmt(tot);
+  body+='<div class="stamp" style="display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden">'+
+   '<div style="position:absolute;right:14px;top:16px;transform:rotate(-8deg);border:3px solid '+stampColor+';color:'+stampColor+';font-family:var(--head);font-weight:700;font-size:18px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:2px">'+stampText+'</div>'+
+   '<div style="font-family:var(--head);font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.05em">Bersih Kilat Gasken</div>'+
+   '<div class="mono" style="font-size:11px;letter-spacing:.1em;color:var(--muted)">NO. '+S.lastNo+' · 23 SEP 2026 · 09:41 · KASIR RINA</div>'+
+   '<div style="border-top:1.5px dashed var(--line2)"></div>'+
+   '<div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:var(--muted)">Pelanggan</span><span style="font-weight:600">'+(S.cust||{name:''}).name+'</span></div>'+
+   '<div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:var(--muted)">Estimasi selesai</span><span style="font-weight:600">'+(S.express?'Hari ini · 6 jam':maxEta+' hari')+'</span></div>'+
+   '<div style="border-top:1.5px dashed var(--line2)"></div>'+
+   lines.map(s=>'<div style="display:flex;justify-content:space-between" class="mono" style="font-size:12px"><span>'+s.name.toUpperCase()+' × '+((S.qty[s.id]%1?S.qty[s.id].toFixed(1):S.qty[s.id])+' '+s.unit.toUpperCase())+'</span><span>'+fmt(S.qty[s.id]*s.price)+'</span></div>').join('')+
+   (S.express?'<div style="display:flex;justify-content:space-between" class="mono"><span>EXPRESS 6 JAM</span><span>+'+fmt(sub*0.5)+'</span></div>':'')+
+   '<div style="border-top:1.5px dashed var(--line2)"></div>'+
+   '<div style="display:flex;justify-content:space-between;font-weight:700;font-size:20px" class="mono"><span>TOTAL</span><span>'+fmt(tot)+'</span></div>'+
+   '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted)" class="mono"><span>'+payLabel+'</span><span>'+paidLabel+'</span></div>'+
+  '</div>';
+  body+=Button(S.receiptSent?'Nota terkirim ke WA':'Kirim nota via WhatsApp',{variant:'primary',size:'lg',block:true,act:'sendReceipt'});
+  body+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'+Button('Cetak struk',{variant:'secondary',act:'printReceipt'})+Button('Order baru',{variant:'secondary',act:'startOrder'})+'</div>';
+ }
+ return '<div style="display:flex;align-items:center;justify-content:space-between"><div><div class="eyebrow">Order baru · NO. '+headerNo+'</div><div class="h1" style="margin-top:4px">'+stepTitle+'</div></div><span class="mono" style="font-size:12px;font-weight:700;border:1.5px solid var(--ink);padding:5px 8px;border-radius:2px">'+stepLabel+'</span></div>'+body;
+}
+
+const ORDER=['antri','cuci','siap','diambil'];
+const LABEL={antri:'Antri',cuci:'Dicuci',siap:'Siap',diambil:'Diambil'};
+const BADGEV={antri:'warning',cuci:'ink',siap:'success',diambil:'outline'};
+const NEXT={antri:'Mulai cuci',cuci:'Tandai siap',siap:'Sudah diambil'};
+function viewAntrian(){
+ const f=state.qFilter;
+ const view=state.queue.filter(o=>f==='semua'||(f==='aktif'?o.status!=='diambil':o.status===f));
+ const qtabs=[['aktif','Aktif'],['antri','Antri'],['cuci','Cuci'],['siap','Siap'],['semua','Semua']];
+ return '<div><div class="eyebrow">'+state.queue.filter(o=>o.status!=='diambil').length+' order aktif</div><div class="h1" style="margin-top:4px">Antrian cucian</div></div>'+
+ '<div class="tabs">'+qtabs.map(q=>'<button class="'+(f===q[0]?'on':'')+'" data-act="setQ" data-arg="'+q[0]+'">'+q[1]+'</button>').join('')+'</div>'+
+ '<div style="display:flex;flex-direction:column;gap:10px">'+view.map(o=>
+  '<div class="card" style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:12px"><div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:8px"><span class="mono" style="font-weight:700;font-size:13px">NO. '+o.no+'</span>'+Badge(LABEL[o.status],BADGEV[o.status],true)+'</div><div style="font-weight:600;font-size:15px;margin-top:6px">'+o.name+'</div><div style="font-size:13px;color:var(--muted)">'+o.desc+' · '+o.eta+'</div></div><div style="text-align:right"><div class="mono" style="font-weight:700;font-size:14px">'+fmt(o.total)+'</div><div class="mono" style="font-size:10px;letter-spacing:.1em;margin-top:2px;color:'+(o.pay==='piutang'?'var(--red)':'var(--success)')+'">'+(o.pay==='piutang'?'BELUM BAYAR':'LUNAS · '+o.pay.toUpperCase())+'</div></div></div>'+
+  (o.status!=='diambil'?'<div style="display:grid;grid-template-columns:1fr auto;gap:8px;border-top:1.5px dashed var(--line2);padding-top:10px">'+Button(NEXT[o.status],{variant:'secondary',size:'sm',block:true,act:'advance',arg:o.no})+(o.status==='siap'?Button('Kabari WA',{variant:'primary',size:'sm',act:'notify',arg:o.no}):'')+'</div>':'')+
+  '</div>').join('')+'</div>';
+}
+
+function viewLaporan(){
+ const p=state.rPeriod,hari=p==='hari';
+ const pLabel=hari?'hari ini':p==='minggu'?'minggu ini':'September';
+ const rev=hari?'Rp 1.350.000':p==='minggu'?'Rp 4.860.000':'Rp 18.300.000';
+ const delta=hari?'+8% vs Selasa lalu':p==='minggu'?'+12% vs minggu lalu':'+6% vs Agustus';
+ const orders=hari?46:p==='minggu'?168:612,kg=hari?131:p==='minggu'?484:1760,profit=hari?'912 rb':p==='minggu'?'3,31 jt':'12,4 jt';
+ const rServices=(hari?[['Cuci kering setrika',820000,61],['Cuci kering',190000,14],['Satuan',205000,15],['Dry clean',135000,10]]:[['Cuci kering setrika',11200000,61],['Cuci kering',2400000,13],['Satuan',2900000,16],['Dry clean',1800000,10]]);
+ const rtabs=[['hari','Hari ini'],['minggu','Minggu'],['bulan','Bulan']];
+ return '<div><div class="eyebrow">Bersih Kilat Gasken · Cabang utama</div><div class="h1" style="margin-top:4px">Laporan</div></div>'+
+ '<div class="tabs">'+rtabs.map(r=>'<button class="'+(p===r[0]?'on':'')+'" data-act="setR" data-arg="'+r[0]+'">'+r[1]+'</button>').join('')+'</div>'+
+ '<div class="dark" style="display:flex;flex-direction:column;gap:12px"><div class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)">Omzet '+pLabel+'</div><div style="display:flex;align-items:baseline;gap:12px"><span class="mono" style="font-weight:700;font-size:32px">'+rev+'</span><span class="mono" style="font-size:12px;color:var(--brass2)">'+delta+'</span></div>'+
+ '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;border-top:1.5px dashed rgba(246,238,221,.25);padding-top:12px"><div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Order</div><div class="mono" style="font-weight:700;font-size:18px">'+orders+'</div></div><div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Kg dicuci</div><div class="mono" style="font-weight:700;font-size:18px">'+kg+'</div></div><div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Laba</div><div class="mono" style="font-weight:700;font-size:18px">'+profit+'</div></div></div></div>'+
+ '<div class="card" style="display:flex;flex-direction:column;gap:12px"><div class="h1" style="font-size:16px">Per layanan</div>'+rServices.map((s,i)=>'<div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;font-size:13px"><span>'+s[0]+'</span><span class="mono" style="font-weight:700">'+fmt(s[1])+'</span></div><div style="height:8px;background:var(--cream);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+s[2]+'%;background:'+(i===0?'var(--red)':'var(--ink)')+'"></div></div></div>').join('')+'</div>'+
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'+
+  '<div class="card"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Tunai</div><div class="mono" style="font-weight:700;font-size:16px;margin-top:4px">'+(hari?'Rp 760.000':'Rp 9,8 jt')+'</div></div>'+
+  '<div class="card"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">QRIS / transfer</div><div class="mono" style="font-weight:700;font-size:16px;margin-top:4px">'+(hari?'Rp 590.000':'Rp 8,5 jt')+'</div></div>'+
+  '<div class="card"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Pengeluaran</div><div class="mono" style="font-weight:700;font-size:16px;margin-top:4px;color:var(--red)">'+(hari?'−Rp 150.000':'−Rp 3,2 jt')+'</div></div>'+
+  '<div class="card"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Piutang</div><div class="mono" style="font-weight:700;font-size:16px;margin-top:4px;color:var(--warn)">'+(hari?'Rp 35.000':'Rp 215.000')+'</div></div>'+
+ '</div>'+
+ Button('Unduh laporan (PDF / Excel)',{variant:'secondary',block:true,act:'exportReport'});
+}
+
+function viewAi(){
+ const chips=['Berapa omzet minggu ini?','Siapa yang belum bayar?','Stok apa yang mau habis?','Kapan jam paling ramai?','Pelanggan lama tak datang'];
+ return '<div style="display:flex;align-items:center;gap:12px"><div class="avatar md" style="border-radius:4px">✦</div><div><div class="h1" style="font-size:22px">Asisten usaha</div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px">Membaca 1.284 transaksi · Data s.d. hari ini</div></div></div>'+
+ '<div style="display:flex;flex-direction:column;gap:12px;padding-bottom:60px">'+state.aiMessages.map(m=>{const me=m.role==='user';
+  return '<div style="display:flex;justify-content:'+(me?'flex-end':'flex-start')+'"><div style="max-width:86%;padding:12px 14px;border-radius:'+(me?'8px 8px 2px 8px':'8px 8px 8px 2px')+';background:'+(me?'var(--ink)':'var(--card)')+';color:'+(me?'var(--cream2)':'var(--ink)')+';border:1.5px solid '+(me?'var(--ink)':'var(--line)')+';font-size:14px;line-height:1.55;white-space:pre-line">'+m.text+(m.chart?barChart(m.chart):'')+(m.source?'<div class="mono" style="margin-top:10px;padding-top:8px;border-top:1.5px dashed var(--line2);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">'+m.source+'</div>':'')+'</div></div>';}).join('')+
+ (state.aiThinking?'<div class="mono" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)">Menghitung dari data kasir…</div>':'')+'</div>'+
+ '<div style="display:flex;gap:8px;flex-wrap:wrap">'+chips.map(c=>'<button class="tag" data-act="ask" data-arg="'+encodeURIComponent(c)+'">'+c+'</button>').join('')+'</div>'+
+ '<div style="position:absolute;left:0;right:0;bottom:78px;padding:10px 18px;background:var(--cream2);display:flex;gap:8px;border-top:1.5px solid var(--line)"><input id="aiInput" class="inp" value="'+esc(state.aiInput)+'" placeholder="Tanya apa saja soal usaha…">'+Button('➤',{variant:'primary',act:'aiSend'})+'</div>';
+}
+
+function supportHeader(eyebrow,title,backAct){
+ return '<div>'+Button('‹ Kembali',{variant:'ghost',size:'sm',act:backAct||'back'})+'<div class="eyebrow" style="margin-top:6px">'+eyebrow+'</div><div class="h1" style="margin-top:4px">'+title+'</div></div>';
+}
+
+function viewPelanggan(){
+ if(state.detailCust){
+  const c=CUSTS.find(x=>x.name===state.detailCust)||{name:state.detailCust,phone:'—',visits:0};
+  const hist=[['23 SEP','Cuci setrika 4 kg','Antri','warning','Rp 28.000'],['16 SEP','Cuci setrika 5 kg','Lunas','success','Rp 35.000'],['09 SEP','Bed cover king ×1','Lunas','success','Rp 25.000'],['02 SEP','Cuci setrika 3,5 kg','Lunas','success','Rp 24.500']];
+  return supportHeader('Pelanggan','Detail','closeCust')+
+   '<div class="row" style="align-items:center">'+Avatar(c.name,'lg')+'<div style="flex:1"><div class="h1" style="font-size:22px">'+c.name+'</div><div class="mono" style="font-size:11px;color:var(--muted);margin-top:6px">'+c.phone+' · '+c.visits+' kunjungan</div></div>'+Badge('Langganan','brass')+'</div>'+
+   '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px"><div class="card"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Kunjungan</div><div class="mono" style="font-weight:700;font-size:20px;margin-top:4px">'+c.visits+'</div></div><div class="card"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Total belanja</div><div class="mono" style="font-weight:700;font-size:20px;margin-top:4px">1,2 jt</div></div><div class="card"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Piutang</div><div class="mono" style="font-weight:700;font-size:20px;margin-top:4px;color:var(--success)">0</div></div></div>'+
+   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'+Button('Order baru',{variant:'stamp',act:'orderFor',arg:c.name})+Button('Chat WA',{variant:'secondary',act:'chatWa',arg:c.name})+'</div>'+
+   '<div class="card" style="display:flex;flex-direction:column;gap:6px"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Catatan</div><div style="font-size:14px;line-height:1.5">Deterjen hipoalergenik. Jangan pakai pewangi lavender. Biasanya ambil sore setelah jam 17.</div></div>'+
+   '<div class="h1" style="font-size:18px">Riwayat</div>'+
+   '<div class="card" style="padding:0;overflow:hidden">'+hist.map((h,i)=>'<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;'+(i<hist.length-1?'border-bottom:1.5px dashed var(--line)':'')+'"><span class="mono" style="font-size:11px;color:var(--muted);width:52px">'+h[0]+'</span><span style="flex:1;font-size:14px">'+h[1]+'</span>'+Badge(h[2],h[3],true)+'<span class="mono" style="font-weight:700;font-size:13px;width:74px;text-align:right">'+h[4]+'</span></div>').join('')+'</div>';
+ }
+ return supportHeader(CUSTS.length+' pelanggan','Pelanggan')+
+  '<div style="display:flex;flex-direction:column;gap:8px">'+CUSTS.map(c=>'<button class="row" data-act="openCust" data-arg="'+c.name+'" style="cursor:pointer;text-align:left;width:100%">'+Avatar(c.name)+'<div style="flex:1"><div style="font-weight:600;font-size:15px">'+c.name+'</div><div class="mono" style="font-size:11px;color:var(--muted);margin-top:2px">'+c.phone+' · '+c.visits+' kunjungan</div></div><span class="mono">›</span></button>').join('')+'</div>';
+}
+
+function viewKas(){
+ return supportHeader('Selasa 23 Sep · Shift pagi · Rina','Kas hari ini')+
+ '<div class="dark" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)">Saldo laci</span>'+Badge('Kas buka 07:58','brass')+'</div><div class="mono" style="font-weight:700;font-size:32px">'+fmt(state.cashBalance)+'</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;border-top:1.5px dashed rgba(246,238,221,.25);padding-top:12px"><div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Modal awal</div><div class="mono" style="font-weight:700;font-size:15px">300.000</div></div><div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Masuk</div><div class="mono" style="font-weight:700;font-size:15px;color:var(--brass2)">+'+state.cashIn.toLocaleString('id-ID')+'</div></div><div><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A99A85">Keluar</div><div class="mono" style="font-weight:700;font-size:15px;color:#CC5A48">−'+state.cashOut.toLocaleString('id-ID')+'</div></div></div></div>'+
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'+Button('+ Pengeluaran',{variant:'primary',act:'addExpense'})+Button('Tutup kas',{variant:'secondary',act:'closeCash'})+'</div>'+
+ '<div style="display:flex;justify-content:space-between;align-items:baseline"><div class="h1" style="font-size:18px">Mutasi</div><span class="mono" style="font-size:11px;color:var(--muted2)">HARI INI</span></div>'+
+ '<div class="card" style="padding:0;overflow:hidden">'+state.mutations.map((m,i)=>'<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;'+(i<state.mutations.length-1?'border-bottom:1.5px dashed var(--line)':'')+'"><span class="mono" style="font-size:11px;color:var(--muted);width:44px">'+m.time+'</span><div style="flex:1"><div style="font-size:14px;font-weight:600">'+m.title+'</div><div style="font-size:12px;color:var(--muted)">'+m.sub+'</div></div><span class="mono" style="font-weight:700;font-size:13px;color:'+(m.amt<0?'var(--red)':m.amt>300000||m.title==='Buka kas'?'var(--ink)':'var(--success)')+'">'+(m.amt<0?'−':m.amt&&m.title!=='Buka kas'?'+':'')+fmt(Math.abs(m.amt)).replace('Rp ','')+'</span></div>').join('')+'</div>';
+}
+
+function viewStok(){
+ const low=state.stock.filter(s=>s.low);
+ return supportHeader(state.stock.length+' item · '+low.length+' menipis','Stok bahan')+
+ low.map(s=>'<div class="card" style="border:2px solid var(--red);box-shadow:3px 3px 0 var(--red);border-radius:2px;display:flex;gap:12px;align-items:center"><div style="flex:1"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)">Menipis · habis ±3 hari</div><div style="font-weight:600;font-size:15px;margin-top:4px">'+s.name+'</div><div style="font-size:13px;color:var(--muted)">'+s.note+'</div></div>'+Button('Pesan',{variant:'primary',size:'sm',act:'restock',arg:s.name})+'</div>').join('')+
+ '<div class="card" style="padding:0;overflow:hidden">'+state.stock.map((s,i)=>{const pct=Math.round(s.cur/s.max*100);return '<div style="padding:14px;'+(i<state.stock.length-1?'border-bottom:1.5px dashed var(--line)':'')+';display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;font-size:14px;align-items:center"><span style="font-weight:600">'+s.name+'</span><span style="display:flex;gap:10px;align-items:center"><span class="mono" style="font-weight:700">'+(s.cur%1?s.cur:s.cur)+' / '+s.max+' '+s.unit+'</span>'+Button('Isi',{variant:'secondary',size:'sm',act:'restock',arg:s.name})+'</span></div><div style="height:8px;background:var(--cream);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+(s.low?'var(--red)':'var(--ink)')+'"></div></div></div>';}).join('')+'</div>'+
+ '<div style="font-size:12px;color:var(--muted);line-height:1.5">Stok berkurang otomatis per kg yang dicuci (takaran diatur di Pengaturan).</div>';
+}
+
+function viewKaryawan(){
+ const sched=[['SEL','Rina · Agus','Dodi'],['RAB','Rina · Agus','Dodi'],['KAM','Dodi · Agus','Rina'],['JUM','Rina · Agus','Dodi · Agus'],['SAB','Rina · Agus','Dodi · Agus'],['MIN','Dodi','Libur']];
+ return supportHeader('Minggu ini · 3 karyawan','Karyawan & shift')+
+ '<div class="stamp" style="display:flex;flex-direction:column;gap:12px"><div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Sedang bertugas · Shift pagi 08–15</div>'+
+  '<div style="display:flex;align-items:center;gap:12px">'+Avatar('Rina Kasir','md')+'<div style="flex:1"><div style="font-weight:600;font-size:15px">Rina</div><div style="font-size:13px;color:var(--muted)">Kasir · Masuk 07:52 · 14 order hari ini</div></div>'+Badge('Hadir','success',true)+'</div>'+
+  '<div style="display:flex;align-items:center;gap:12px">'+Avatar('Agus Operator','md')+'<div style="flex:1"><div style="font-weight:600;font-size:15px">Agus</div><div style="font-size:13px;color:var(--muted)">Operator cuci · Masuk 08:05 · 31 kg</div></div>'+Badge('Hadir','success',true)+'</div></div>'+
+ '<div class="h1" style="font-size:18px">Jadwal minggu ini</div>'+
+ '<div class="card" style="padding:0;overflow:hidden"><div style="display:grid;grid-template-columns:52px 1fr 1fr;gap:8px;padding:10px 14px;border-bottom:1.5px solid var(--line)" class="mono" style="font-size:10px"><span>Hari</span><span>Pagi 08–15</span><span>Sore 15–21</span></div>'+sched.map((r,i)=>'<div style="display:grid;grid-template-columns:52px 1fr 1fr;gap:8px;padding:10px 14px;font-size:14px;'+(i<sched.length-1?'border-bottom:1.5px dashed var(--line)':'')+';'+(i===0?'background:var(--cream)':'')+'"><span class="mono" style="font-size:11px;font-weight:700">'+r[0]+'</span><span>'+r[1]+'</span><span'+(r[2]==='Libur'?' style="color:var(--muted2)"':'')+'>'+r[2]+'</span></div>').join('')+'</div>'+
+ '<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:14px">Komisi per kg</div><div style="font-size:12px;color:var(--muted)">Rp 500/kg untuk operator · dihitung otomatis</div></div>'+Switch(state.commission,'toggleCommission')+'</div>';
+}
+
+function viewAntarJemput(){
+ const f=state.pjFilter;
+ const view=state.pickups.filter(p=>f==='Semua'||p.type===f);
+ const cnt={jemput:state.pickups.filter(p=>p.type==='Jemput').length,antar:state.pickups.filter(p=>p.type==='Antar').length};
+ const sb={menunggu:['Menunggu','outline',false],jalan:['Di jalan','warning',true],selesai:['Selesai','success',true]};
+ return supportHeader('Hari ini · '+state.pickups.length+' titik','Antar-jemput')+
+ '<div style="height:130px;background:var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--brass);border:2px solid var(--ink)" class="mono" style="font-size:11px">Peta rute kurir · placeholder</div>'+
+ '<div style="display:flex;gap:8px">'+Tag('Semua '+state.pickups.length,f==='Semua','setPj','Semua')+Tag('Jemput '+cnt.jemput,f==='Jemput','setPj','Jemput')+Tag('Antar '+cnt.antar,f==='Antar','setPj','Antar')+'</div>'+
+ '<div style="display:flex;flex-direction:column;gap:10px">'+view.map(p=>{const s=sb[p.status];return '<div class="card" style="display:flex;gap:12px;align-items:center"><div class="mono" style="font-weight:700;font-size:13px;width:44px">'+p.time+'</div><div style="flex:1"><div style="display:flex;gap:8px;align-items:center"><span style="font-weight:600;font-size:15px">'+p.name+'</span>'+Badge(p.type,p.type==='Antar'?'accent':'outline')+'</div><div style="font-size:13px;color:var(--muted);margin-top:2px">'+p.info+'</div></div>'+(p.status==='selesai'?Badge(s[0],s[1],s[2]):p.status==='jalan'?Badge(s[0],s[1],s[2]):Button('Mulai',{variant:'secondary',size:'sm',act:'pjStart',arg:p.name}))+(p.status==='jalan'?Button('Selesai',{variant:'primary',size:'sm',act:'pjDone',arg:p.name}):'')+'</div>';}).join('')+'</div>'+
+ '<div style="font-size:12px;color:var(--muted);line-height:1.5">Ongkir Rp 5.000 dalam radius 3 km, gratis di atas Rp 50.000. Pelanggan dapat WA saat kurir berangkat.</div>';
+}
+
+function viewWa(){
+ const auto=[['nota','Nota digital','Terkirim saat order dibuat · 142 bulan ini'],['siap','Cucian siap diambil','Saat status → Siap · 128 bulan ini'],['piutang','Pengingat piutang','3 hari setelah siap jika belum lunas'],['belum','Pengingat belum diambil','7 hari setelah siap']];
+ const segs=[['lama','Lama tak datang 31'],['langganan','Langganan 22'],['semua','Semua 86']];
+ return supportHeader('Terhubung · 0812-8888-0001','WhatsApp')+
+ '<div class="eyebrow">Pesan otomatis</div>'+
+ '<div class="card" style="padding:0;overflow:hidden">'+auto.map((a,i)=>'<div style="padding:12px 14px;'+(i<auto.length-1?'border-bottom:1.5px dashed var(--line)':'')+';display:flex;align-items:center;gap:12px"><div style="flex:1"><div style="font-weight:600;font-size:14px">'+a[1]+'</div><div style="font-size:12px;color:var(--muted)">'+a[2]+'</div></div>'+Switch(state.waAuto[a[0]],'waToggle',a[0])+'</div>').join('')+'</div>'+
+ '<div style="display:flex;justify-content:space-between;align-items:baseline"><div class="h1" style="font-size:18px">Broadcast promo</div><span class="mono" style="font-size:11px;color:var(--muted2)">86 KONTAK OPT-IN</span></div>'+
+ '<div class="stamp" style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:8px;flex-wrap:wrap">'+segs.map(s=>Tag(s[1],state.waSeg===s[0],'waSeg',s[0])).join('')+'</div>'+
+  '<div style="background:var(--cream2);border:1.5px solid var(--line);border-radius:4px;padding:12px;font-size:14px;line-height:1.55">Halo {nama}, sudah sebulan cucianmu belum mampir ke Bersih Kilat Gasken. Minggu ini <strong>diskon 20% cuci setrika</strong>, tunjukkan pesan ini di kasir. Buka 08–21.</div>'+
+  '<div style="display:flex;justify-content:space-between;align-items:center" class="mono" style="font-size:11px;color:var(--muted)"><span>DRAF DARI ASISTEN AI</span><span>'+({lama:31,langganan:22,semua:86}[state.waSeg]||31)+' PENERIMA</span></div>'+
+  Button('Kirim broadcast',{variant:'primary',block:true,act:'waSend'})+'</div>';
+}
+
+const VIEWS={home:viewHome,kasir:viewKasir,antrian:viewAntrian,laporan:viewLaporan,ai:viewAi,pelanggan:viewPelanggan,kas:viewKas,stok:viewStok,karyawan:viewKaryawan,antarjemput:viewAntarJemput,wa:viewWa};
+function bottomNav(){
+ const tabs=[['home','Beranda'],['kasir','Kasir'],['antrian','Antrian'],['laporan','Laporan'],['ai','AI']];
+ return tabs.map(t=>{const on=state.tab===t[0]&&!state.sub;return '<button class="navbtn" data-act="nav" data-arg="'+t[0]+'" style="color:'+(on?'var(--ink)':'var(--muted2)')+';font-weight:'+(on?700:400)+'"><span class="bar" style="background:'+(on?'var(--red)':'transparent')+'"></span>'+t[1]+'</button>';}).join('');
+}
+function render(){
+ const key=state.sub||state.tab;
+ document.getElementById('app').innerHTML=(VIEWS[key]||viewHome)();
+ document.getElementById('nav').innerHTML=bottomNav();
+ document.getElementById('app').scrollTop=0;
+}
+
+const ACTIONS={
+ nav:function(id){setState({tab:id,sub:null});},
+ open:function(id){setState({sub:id,detailCust:null});},
+ back:function(){setState({sub:null});},
+ startOrder:function(){setState({tab:'kasir',sub:null,step:1,cust:null,custQuery:'',qty:{},express:false,pay:'tunai',cash:null,receiptSent:false});},
+ notify:function(no){setState(s=>({notified:Object.assign({},s.notified,{[no]:true})}));toast('WA terkirim: cucian NO. '+no+' siap diambil');},
+ pickCust:function(name){setState(s=>({cust:CUSTS.find(c=>c.name===name)||s.cust}));},
+ newCust:function(){setState(s=>({cust:{name:s.custQuery||'Pelanggan baru',phone:'—',visits:0}}));},
+ setCat:function(k){setState({cat:k});},
+ inc:function(id){setState(s=>{const st=SERVICES.find(x=>x.id===id).unit==='kg'?0.5:1;return {qty:Object.assign({},s.qty,{[id]:(s.qty[id]||0)+st})};});},
+ dec:function(id){setState(s=>{const st=SERVICES.find(x=>x.id===id).unit==='kg'?0.5:1;return {qty:Object.assign({},s.qty,{[id]:Math.max(0,(s.qty[id]||0)-st)})};});},
+ toggleExpress:function(){setState(s=>({express:!s.express}));},
+ step:function(n){setState({step:+n});},
+ setPay:function(p){setState({pay:p,cash:null});},
+ setCash:function(v){setState({cash:+v});},
+ finishOrder:function(){setState(s=>{
+  const no=String(232+s.queue.filter(o=>+o.no>231).length).padStart(4,'0');
+  const desc=SERVICES.filter(x=>s.qty[x.id]).map(x=>x.name+' '+s.qty[x.id]+' '+x.unit).join(', ')+(s.express?' · express':'');
+  const sub=SERVICES.reduce((a,x)=>a+(s.qty[x.id]||0)*x.price,0);const tot=s.express?sub*1.5:sub;
+  return {step:4,lastNo:no,queue:[{no:no,name:(s.cust||{name:'Pelanggan baru'}).name,desc:desc,total:tot,status:'antri',pay:s.pay,eta:s.express?'Hari ini 16:00':'Kamis 10:00'}].concat(s.queue)};
+ });},
+ sendReceipt:function(){setState({receiptSent:true});toast('Nota NO. '+state.lastNo+' terkirim ke WA '+((state.cust||{}).phone||''));},
+ printReceipt:function(){toast('Mencetak struk 58 mm…');},
+ setQ:function(v){setState({qFilter:v});},
+ advance:function(no){const o=state.queue.find(x=>x.no===no);const nx=ORDER[ORDER.indexOf(o.status)+1];setState(s=>({queue:s.queue.map(x=>x.no===no?Object.assign({},x,{status:nx,eta:nx==='siap'?'Siap':nx==='diambil'?'Selesai':x.eta}):x)}));if(nx==='siap')toast('WA otomatis ke '+o.name+': cucian siap diambil');},
+ setR:function(v){setState({rPeriod:v});},
+ exportReport:function(){toast('Laporan dikirim ke email pemilik');},
+ ask:function(enc){askAI(decodeURIComponent(enc));},
+ aiSend:function(){const el=document.getElementById('aiInput');askAI(el?el.value:state.aiInput);},
+ openCust:function(name){setState({detailCust:name});},
+ closeCust:function(){setState({detailCust:null});},
+ orderFor:function(name){const c=CUSTS.find(x=>x.name===name);setState({tab:'kasir',sub:null,step:2,cust:c,qty:{},express:false,pay:'tunai',cash:null,receiptSent:false});},
+ chatWa:function(name){toast('Membuka WhatsApp chat dengan '+name);},
+ addExpense:function(){setState(s=>({cashBalance:s.cashBalance-25000,cashOut:s.cashOut+25000,mutations:[{time:'Baru',title:'Pengeluaran operasional',sub:'Pengeluaran · Operasional',amt:-25000}].concat(s.mutations)}));toast('Pengeluaran Rp 25.000 dicatat');},
+ closeCash:function(){toast('Kas ditutup · saldo '+fmt(state.cashBalance)+' cocok');},
+ restock:function(name){setState(s=>({stock:s.stock.map(x=>x.name===name?Object.assign({},x,{cur:x.max,low:false}):x)}));toast(name+' diisi ulang · stok penuh');},
+ toggleCommission:function(){setState(s=>({commission:!s.commission}));},
+ setPj:function(f){setState({pjFilter:f});},
+ pjStart:function(name){setState(s=>({pickups:s.pickups.map(p=>p.name===name?Object.assign({},p,{status:'jalan'}):p)}));toast('Kurir berangkat ke '+name+' · WA terkirim');},
+ pjDone:function(name){setState(s=>({pickups:s.pickups.map(p=>p.name===name?Object.assign({},p,{status:'selesai'}):p)}));toast(name+' selesai');},
+ waToggle:function(k){setState(s=>({waAuto:Object.assign({},s.waAuto,{[k]:!s.waAuto[k]})}));},
+ waSeg:function(seg){setState({waSeg:seg});},
+ waSend:function(){const n={lama:31,langganan:22,semua:86}[state.waSeg]||31;toast('Broadcast terkirim ke '+n+' kontak');}
+};
+
+document.addEventListener('click',function(e){
+ const t=e.target.closest('[data-act]');if(!t)return;
+ const act=t.getAttribute('data-act');const arg=t.getAttribute('data-arg');
+ if(ACTIONS[act])ACTIONS[act](arg);
+});
+document.addEventListener('input',function(e){
+ if(e.target.id==='custQuery'){state.custQuery=e.target.value;}
+ if(e.target.id==='aiInput'){state.aiInput=e.target.value;}
+});
+document.addEventListener('keydown',function(e){
+ if(e.target.id==='aiInput'&&e.key==='Enter'){askAI(e.target.value);}
+});
+document.getElementById('reset').addEventListener('click',resetDemo);
+
+function init(){if(location.search.indexOf('test')>-1)runTests();render();}
+init();
+</script>
+</body>
+</html>
